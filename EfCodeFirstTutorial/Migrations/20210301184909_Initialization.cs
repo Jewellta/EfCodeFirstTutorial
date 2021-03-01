@@ -23,6 +23,12 @@ namespace EfCodeFirstTutorial.Migrations
                 {
                     table.PrimaryKey("PK_Customers", x => x.Id);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customers_Code",
+                table: "Customers",
+                column: "Code",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

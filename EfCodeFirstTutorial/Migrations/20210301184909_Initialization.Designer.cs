@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EfCodeFirstTutorial.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210301172122_Initialization")]
+    [Migration("20210301184909_Initialization")]
     partial class Initialization
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,6 +48,9 @@ namespace EfCodeFirstTutorial.Migrations
                         .HasColumnType("decimal(9,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.ToTable("Customers");
                 });
