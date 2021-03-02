@@ -26,6 +26,7 @@ namespace EfCodeFirstTutorial.Controllers
 		{
 			if (customer == null){ throw new Exception("cant create customer"); }
 			if(customer.Id != 0) { throw new Exception("customer id must be zero"); }
+			customer.Created = DateTime.Now;
 			_context.Customers.Add(customer);
 			var rowsAffected = await _context.SaveChangesAsync();
 			if(rowsAffected != 1)
