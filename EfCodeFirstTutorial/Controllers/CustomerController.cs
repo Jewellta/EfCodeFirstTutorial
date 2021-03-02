@@ -33,14 +33,30 @@ namespace EfCodeFirstTutorial.Controllers
 			return customer;
 		}
 
-		public Change(Customer customer)
+		public async Task Change(Customer customer)
 		{
 			if (customer == null) { throw new Exception("no customer"); }
 			_context.Entry(customer).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+			var rowsAffected = await _context.SaveChangesAsync();
+			if(rowsAffected != 1) { throw new Exception("changing too many rows");
+			}
+			return;
 		}
 
-
-
+		public async Task <Customer> Remove(int id)
+		{
+			var customer = await _context.Customers.FindAsync(id);         
+			if (customer == null){
+				return null;                                   
+			}
+			_context.Customers.Remove(customer);                  
+			int count = await _context.Customers.Where(s => s.Id == customer.Id).CountAsync();           
+			if (count > 0) { throw new Exception("remove failed"); }
+			_context.Customers.Remove(customer);
+			var rowsAffected = await _context.SaveChangesAsync();
+			if (rowsAffected != 1) { throw new Exception("remove failed"); }
+			return customer;
+		}
 
 			public CustomerController()
 			{
