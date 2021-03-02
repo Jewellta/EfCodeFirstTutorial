@@ -52,11 +52,6 @@ namespace EfCodeFirstTutorial.Controllers
 
 		}
 
-
-
-
-
-
 		public OrderLineController()
 		{
 			_context = new AppDbContext();
